@@ -1,9 +1,14 @@
+patients = []
+
 def get_menu_choice():
-    "This menu allows us to display menu options that user can choose from."
+    """This function displays the menu and collects user request"""
+    
+    
+    #This menu allows us to display menu options that user can choose from.
     menu_options = ["Register Patient", "Update Patient", "View All Patient", "Search Patient",
                     "Filter by Blood Type", "Delete Patient", "Exit"]
 
-    """This function displays the menu and collects user request"""
+  
     print("=" * 32)
     print("Patient Record System")
     print("=" * 32)
@@ -21,3 +26,133 @@ def get_menu_choice():
                 print("Please enter a number between 1 and 7.")
         except ValueError:
             print("Please check your input and make it match the requested input")
+
+
+def generate_patient_id(patients):
+    """A function that generates patient_id"""
+    return "P" + str(len(patients) + 1).zfill(3)
+
+
+def register_patient():
+    """A function that registers patients details"""
+    while True:
+        print("="*32)
+        print("Register Patient Menu")
+        print("="*32)
+
+        name = input("Enter Name: ").title()
+        while True:
+            try:
+                age = int(input("\nEnter age(in numbers): "))
+                break
+            except ValueError:
+                print("Please input a valid number")
+        gender = input("\nGender(Male/ Female): ")
+        blood_types = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+        while True:
+            user_blood_type = input(
+                "\nEnter blood type (A+, A-, B+, B-, AB+, AB-, O+, O-): ").upper()
+            if user_blood_type in blood_types:
+                break
+            else:
+                print("Please input an appropriate blood type")
+
+        phone_number = int(input("\nEnter phone number: "))
+        ailment = input("\nAliment: ")
+        id = generate_patient_id(patients)
+
+        # storing to list
+        patient = {
+            "id": id,
+            "name": name,
+            "age": age,
+            "gender": gender,
+            "blood type": user_blood_type,
+            "phone number": phone_number,
+            "ailment": ailment
+
+
+        }
+        patients.append(patient)
+        print(f"\nPatient: {name} registered successfully")
+
+        next_patient = input("\nNext Patient?(Y/N) ").upper()
+        if next_patient == "N":
+            break
+
+        else:
+            print(f"Input details for next patient\n")
+            
+            
+def update_patient(patients):
+    """Thsi functions allows users to update some patient details ie (phone number, ailment and age)"""
+    print("="*32)
+    print("Update Patient Menu")
+    print("="*32)
+
+    while True:
+        patient_id = input("Enter patient ID:(or type 'exit' to cancel): ")
+
+        if patient_id.lower() == "exit":
+            print("Update cancelled.")
+            break
+
+        # Search for the patient
+        for patient in patients:
+            if patient_id == patient["id"]:
+                print(
+                    f"Id found. You want to update {patient['name']}. You can only update'phone number', 'age' and 'ailment' ")
+                # updating fields
+
+                patient["phone number"] = int(input("New phone number: "))
+
+                patient["ailment"] = input("New Ailment: ")
+
+                while True:
+                    try:
+                        patient["age"] = int(input("New age: "))
+                        break
+                    except ValueError:
+                        print("Age must be a number")
+                print(f"Patient {patient['name']} updated successfully")
+                return
+
+        else:
+            print("Patient Id does not exist")
+
+
+def view_all_patients(patients):
+    """This Functions allows users view all registered patients."""
+    print("="*32)
+    print("View Patients Menu")
+    print("="*32)
+    if patients == []:
+        print("\nNo patients recorded yet\n")
+        return
+    for number, patient in enumerate(patients, start=1):
+        print(f"Patient {number}")
+        print("\n-"*40)
+
+        for key, value in patient.items():
+
+            print(f"{key.title():15} : {value}")
+
+            print("\n="*32)
+
+
+def search_patient(patients):
+
+    found = False
+
+    print("=" * 32)
+    print("Search Menu")
+    print("=" * 32)
+    search_request = input("Enter the Id of Patient: ")
+    print("=" * 32)
+    for patient in patients:
+        if search_request == patient["id"]:
+            found = True
+            for key, value in patient.items():
+               print(f"{key.title():15} : {value}")
+        if not found:
+            print("Id not found")
