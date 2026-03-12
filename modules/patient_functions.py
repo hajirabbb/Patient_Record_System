@@ -1,9 +1,12 @@
 def get_menu_choice():
-    "This menu allows us to display menu options that user can choose from."
+    """This function displays the menu and collects user request"""
+    
+    
+    #This menu allows us to display menu options that user can choose from.
     menu_options = ["Register Patient", "Update Patient", "View All Patient", "Search Patient",
                     "Filter by Blood Type", "Delete Patient", "Exit"]
 
-    """This function displays the menu and collects user request"""
+  
     print("=" * 32)
     print("Patient Record System")
     print("=" * 32)
@@ -21,3 +24,8 @@ def get_menu_choice():
                 print("Please enter a number between 1 and 7.")
         except ValueError:
             print("Please check your input and make it match the requested input")
+
+
+def generate_patient_id(patients):
+    """A function that generates patient_id"""
+    return "P" + str(len(patients) + 1).zfill(3)
