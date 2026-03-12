@@ -1,3 +1,5 @@
+patients = []
+
 def get_menu_choice():
     """This function displays the menu and collects user request"""
     
@@ -29,3 +31,54 @@ def get_menu_choice():
 def generate_patient_id(patients):
     """A function that generates patient_id"""
     return "P" + str(len(patients) + 1).zfill(3)
+
+
+def register_patient():
+    """A function that registers patients details"""
+    while True:
+        print("="*32)
+        print("Register Patient Menu")
+        print("="*32)
+
+        name = input("Enter Name: ").title()
+        while True:
+            try:
+                age = int(input("\nEnter age(in numbers): "))
+                break
+            except ValueError:
+                print("Please input a valid number")
+        gender = input("\nGender(Male/ Female): ")
+        blood_types = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+        while True:
+            user_blood_type = input(
+                "\nEnter blood type (A+, A-, B+, B-, AB+, AB-, O+, O-): ").upper()
+            if user_blood_type in blood_types:
+                break
+            else:
+                print("Please input an appropriate blood type")
+
+        phone_number = int(input("\nEnter phone number: "))
+        ailment = input("\nAliment: ")
+        id = generate_patient_id(patients)
+
+        # storing to list
+        patient = {
+            "id": id,
+            "name": name,
+            "age": age,
+            "gender": gender,
+            "blood type": user_blood_type,
+            "phone number": phone_number,
+            "ailment": ailment
+
+
+        }
+        patients.append(patient)
+        print(f"\nPatient: {name} registered successfully")
+
+        next_patient = input("\nNext Patient?(Y/N) ").upper()
+        if next_patient == "N":
+            break
+
+        else:
+            print(f"Input details for next patient\n")
