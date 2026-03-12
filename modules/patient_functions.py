@@ -82,3 +82,77 @@ def register_patient():
 
         else:
             print(f"Input details for next patient\n")
+            
+            
+def update_patient(patients):
+    """Thsi functions allows users to update some patient details ie (phone number, ailment and age)"""
+    print("="*32)
+    print("Update Patient Menu")
+    print("="*32)
+
+    while True:
+        patient_id = input("Enter patient ID:(or type 'exit' to cancel): ")
+
+        if patient_id.lower() == "exit":
+            print("Update cancelled.")
+            break
+
+        # Search for the patient
+        for patient in patients:
+            if patient_id == patient["id"]:
+                print(
+                    f"Id found. You want to update {patient['name']}. You can only update'phone number', 'age' and 'ailment' ")
+                # updating fields
+
+                patient["phone number"] = int(input("New phone number: "))
+
+                patient["ailment"] = input("New Ailment: ")
+
+                while True:
+                    try:
+                        patient["age"] = int(input("New age: "))
+                        break
+                    except ValueError:
+                        print("Age must be a number")
+                print(f"Patient {patient['name']} updated successfully")
+                return
+
+        else:
+            print("Patient Id does not exist")
+
+
+def view_all_patients(patients):
+    """This Functions allows users view all registered patients."""
+    print("="*32)
+    print("View Patients Menu")
+    print("="*32)
+    if patients == []:
+        print("\nNo patients recorded yet\n")
+        return
+    for number, patient in enumerate(patients, start=1):
+        print(f"Patient {number}")
+        print("\n-"*40)
+
+        for key, value in patient.items():
+
+            print(f"{key.title():15} : {value}")
+
+            print("\n="*32)
+
+
+def search_patient(patients):
+
+    found = False
+
+    print("=" * 32)
+    print("Search Menu")
+    print("=" * 32)
+    search_request = input("Enter the Id of Patient: ")
+    print("=" * 32)
+    for patient in patients:
+        if search_request == patient["id"]:
+            found = True
+            for key, value in patient.items():
+               print(f"{key.title():15} : {value}")
+        if not found:
+            print("Id not found")
