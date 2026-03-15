@@ -4,11 +4,6 @@ blood_types = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
 
 
-def save_patient(patients):
-    with open("patient.txt", "w") as file:
-        for patient in patients:
-            file.write(
-                f"{patient['id']},{patient['name']},{patient['age']},{patient['gender']},{patient['blood type']},{patient['phonenumber']},{patient['ailment']} \n")
 
 
 def register_patient():
