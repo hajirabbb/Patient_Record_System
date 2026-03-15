@@ -2,8 +2,28 @@ patients = []
 blood_types = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
 
+def generate_patient_id(patients):
+    """A function that generates patient_id"""
+    return "P" + str(len(patients) + 1).zfill(3)
 
 
+def load_patient():
+    try:
+        with open("patient.txt", "r") as file:
+            for line in file:
+                id, name, age, gender, blood_type,  phone_number, ailment = line.strip(). split(",")
+                patients.append({
+                    "id": id,
+                    "name": name,
+                    "age": age,
+                    "gender": gender,
+                    "blood type": blood_type,
+                    "phonenumber": phone_number,
+                    "ailment": ailment})
+    except FileNotFoundError:
+        pass
+
+    return patients
 
 
 def register_patient():
