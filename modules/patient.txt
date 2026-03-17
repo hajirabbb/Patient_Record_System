@@ -1,2 +1,0 @@
-P002,Hajira,23,Female,A-,0654321678,malaria 
-P003,Ama,23,Female,A-,0987654321,malaria 
